@@ -1,175 +1,902 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Marketplace</title>
+
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
-            darkMode: 'class'
+            darkMode: false
         }
     </script>
 
+
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
 
     <style>
-        html { font-size: 16px; }
+
+        html {
+            font-size: 16px;
+        }
 
         @media (max-width: 768px) {
-            html { font-size: 18px; }
+
+            html {
+                font-size: 16px;
+            }
+
         }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            background: #ffffff !important;
+
+            color: #800000 !important;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =================================
+           GLOBAL
+        ================================= */
+
+        a {
+            color: #800000;
+        }
+
+        a:hover {
+            color: #5C0000;
+        }
+
+
+        /* =================================
+           NAVBAR
+        ================================= */
+
+        .marketplace-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+
+            width: 100%;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #800000;
+
+            box-shadow:
+                0 4px 15px rgba(128, 0, 0, 0.08);
+        }
+
+
+        .navbar-container {
+            width: 100%;
+            max-width: 1280px;
+
+            margin: 0 auto;
+
+            padding: 12px 24px;
+        }
+
+
+        .navbar-inner {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+
+        /* =================================
+           LOGO
+        ================================= */
+
+        .marketplace-logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            color: #800000;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        .marketplace-logo:hover {
+            color: #5C0000;
+        }
+
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #800000;
+
+            color: #ffffff;
+
+            font-size: 17px;
+        }
+
+
+        /* =================================
+           DESKTOP NAVIGATION
+        ================================= */
+
+        .desktop-navigation {
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+            margin-left: auto;
+        }
+
+
+        .navigation-link {
+            position: relative;
+
+            text-decoration: none;
+
+            color: #800000;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            padding: 7px 0;
+
+            transition: 0.2s ease;
+        }
+
+
+        .navigation-link::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 0;
+            height: 2px;
+
+            background: #800000;
+
+            transition: width 0.2s ease;
+        }
+
+
+        .navigation-link:hover {
+            color: #5C0000;
+        }
+
+
+        .navigation-link:hover::after {
+            width: 100%;
+        }
+
+
+        /* =================================
+           RIGHT SIDE
+        ================================= */
+
+        .navbar-right {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        /* =================================
+           SEARCH
+        ================================= */
+
+        .search-wrapper {
+            position: relative;
+        }
+
+
+        .search-form {
+            position: relative;
+
+            width: 220px;
+        }
+
+
+        .search-input {
+            width: 100%;
+
+            height: 40px;
+
+            padding: 0 42px 0 16px;
+
+            background: #ffffff;
+
+            border: 1px solid #800000;
+
+            border-radius: 20px;
+
+            outline: none;
+
+            color: #800000;
+
+            font-size: 13px;
+        }
+
+
+        .search-input::placeholder {
+            color: #800000;
+            opacity: 0.65;
+        }
+
+
+        .search-input:focus {
+            border-color: #5C0000;
+
+            box-shadow:
+                0 0 0 3px rgba(128, 0, 0, 0.10);
+        }
+
+
+        .search-button {
+            position: absolute;
+
+            right: 5px;
+            top: 5px;
+
+            width: 30px;
+            height: 30px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #800000;
+
+            color: #ffffff;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+        }
+
+
+        .search-button:hover {
+            background: #5C0000;
+        }
+
+
+        /* =================================
+           ADD PRODUCT
+        ================================= */
+
+        .add-product-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 6px;
+
+            min-height: 40px;
+
+            padding: 0 15px;
+
+            border-radius: 9px;
+
+            background: #800000;
+
+            color: #ffffff !important;
+
+            border: 1px solid #800000;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .add-product-button:hover {
+            background: #5C0000;
+
+            border-color: #5C0000;
+
+            color: #ffffff !important;
+        }
+
+
+        /* =================================
+           ICON BUTTONS
+        ================================= */
+
+        .nav-icon-link {
+            position: relative;
+
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            color: #800000 !important;
+
+            background: #ffffff;
+
+            border: 1px solid #800000;
+
+            text-decoration: none;
+
+            transition: 0.2s ease;
+        }
+
+
+        .nav-icon-link:hover {
+            background: #800000;
+
+            color: #ffffff !important;
+        }
+
+
+        .nav-icon-link i {
+            font-size: 17px;
+        }
+
+
+        /* =================================
+           NOTIFICATION COUNT
+        ================================= */
+
+        .notification-count {
+            position: absolute;
+
+            top: -7px;
+            right: -7px;
+
+            min-width: 19px;
+            height: 19px;
+
+            padding: 0 5px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 20px;
+
+            background: #800000;
+
+            color: #ffffff;
+
+            border: 2px solid #ffffff;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            line-height: 1;
+        }
+
+
+        /* =================================
+           PROFILE
+        ================================= */
+
+        .profile-link {
+            display: block;
+
+            text-decoration: none;
+        }
+
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #800000;
+
+            border: 2px solid #800000;
+
+            transition: 0.2s ease;
+        }
+
+
+        .profile-link:hover .profile-avatar {
+            border-color: #5C0000;
+
+            transform: scale(1.04);
+        }
+
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
+        .profile-avatar i {
+            color: #ffffff;
+
+            font-size: 18px;
+        }
+
+
+        /* =================================
+           PAGE CONTENT
+        ================================= */
+
+        .page-content {
+            min-height: calc(100vh - 65px);
+
+            padding: 24px;
+
+            background: #ffffff;
+        }
+
+
+        /* =================================
+           LOADING
+        ================================= */
 
         .btn-loading {
             opacity: 0.7;
+
             pointer-events: none;
         }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 1100px) {
+
+            .desktop-navigation {
+                display: none;
+            }
+
+            .search-form {
+                width: 190px;
+            }
+
+        }
+
+
+        @media (max-width: 768px) {
+
+            .navbar-container {
+                padding: 10px 14px;
+            }
+
+
+            .navbar-inner {
+                gap: 10px;
+            }
+
+
+            .marketplace-logo {
+                font-size: 18px;
+            }
+
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+
+            .search-wrapper {
+                display: none;
+            }
+
+
+            .add-product-button {
+                width: 40px;
+                height: 40px;
+
+                padding: 0;
+
+                border-radius: 9px;
+
+                font-size: 0;
+            }
+
+
+            .add-product-button i {
+                font-size: 16px;
+            }
+
+
+            .page-content {
+                padding: 15px 12px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .marketplace-logo span:last-child {
+                display: none;
+            }
+
+
+            .navbar-right {
+                gap: 7px;
+            }
+
+
+            .nav-icon-link,
+            .profile-avatar,
+            .add-product-button {
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .profile-avatar {
+                border-width: 2px;
+            }
+
+        }
+
     </style>
+
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+<body>
+
 
 <!-- ================= NAVBAR ================= -->
+
 {% if request.user.is_authenticated %}
 
-<nav class=" dark:bg-gray-800 shadow-md sticky top-0 z-50">
+<nav class="marketplace-navbar">
 
-  <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+    <div class="navbar-container">
 
-    <div class="flex items-center justify-between py-3">
+        <div class="navbar-inner">
 
-      <!-- LOGO -->
-      <a href="{% url 'listings:dashboard' %}"
-         class="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
 
-        <span class="text-primary">
-          <svg width="32" height="32" viewBox="0 0 34 34" fill="currentColor">
-            <circle cx="17" cy="17" r="16"/>
-          </svg>
-        </span>
+            <!-- ================= LOGO ================= -->
 
-        Marketplace
-      </a>
+            <a
+                href="{% url 'listings:dashboard' %}"
+                class="marketplace-logo"
+            >
 
-      <!-- NAV LINKS (desktop) -->
-      <div class="hidden lg:flex items-center gap-6 text-sm font-medium">
-        <a href="{% url 'listings:dashboard' %}" class="hover:text-primary">Home</a>
-        <a href="#about-us" class="hover:text-primary">About</a>
-        <a href="#services" class="hover:text-primary">Products</a>
-        <a href="#faqs" class="hover:text-primary">FAQ</a>
-      </div>
+                <span class="logo-icon">
 
-      <!-- RIGHT SIDE -->
-      <div class="flex items-center gap-4">
+                    <i class="bi bi-shop"></i>
 
-        <!-- SEARCH -->
-        <div class="hidden md:block">
-          <form method="GET" action="{% url 'listings:dashboard' %}">
-            <input type="text"
-                   name="q"
-                   placeholder="Search products..."
-                   class="px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-black dark:text-white border-0">
-          </form>
+                </span>
+
+                <span>
+                    Marketplace
+                </span>
+
+            </a>
+
+
+            <!-- ================= NAVIGATION ================= -->
+
+            <div class="desktop-navigation">
+
+                <a
+                    href="{% url 'listings:dashboard' %}"
+                    class="navigation-link"
+                >
+                    Home
+                </a>
+
+
+                <a
+                    href="#about-us"
+                    class="navigation-link"
+                >
+                    About
+                </a>
+
+
+                <a
+                    href="#services"
+                    class="navigation-link"
+                >
+                    Products
+                </a>
+
+
+                <a
+                    href="#faqs"
+                    class="navigation-link"
+                >
+                    FAQ
+                </a>
+
+            </div>
+
+
+            <!-- ================= RIGHT SIDE ================= -->
+
+            <div class="navbar-right">
+
+
+                <!-- SEARCH -->
+
+                <div class="search-wrapper">
+
+                    <form
+                        method="GET"
+                        action="{% url 'listings:dashboard' %}"
+                        class="search-form"
+                    >
+
+                        <input
+                            type="text"
+                            name="q"
+                            placeholder="Search products..."
+                            class="search-input"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="search-button"
+                        >
+
+                            <i class="bi bi-search"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- ADD PRODUCT -->
+
+                <a
+                    href="{% url 'listings:add_product' %}"
+                    class="add-product-button"
+                >
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    <span>
+                        Add Product
+                    </span>
+
+                </a>
+
+
+                <!-- ================= MESSAGES ================= -->
+
+                <a
+                    href="{% url 'chat:notifications' %}"
+                    class="nav-icon-link"
+                >
+
+                    <i class="bi bi-chat"></i>
+
+
+                    {% if unread_message_count > 0 %}
+
+                        <span class="notification-count">
+
+                            {{ unread_message_count }}
+
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+
+                <!-- ================= NOTIFICATIONS ================= -->
+
+                <a
+                    href="{% url 'listings:notifications' %}"
+                    class="nav-icon-link"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+
+                    {% if unread_count > 0 %}
+
+                        <span class="notification-count">
+
+                            {{ unread_count }}
+
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+
+                <!-- ================= PROFILE ================= -->
+
+                <a
+                    href="{% url 'profile_view' %}"
+                    class="profile-link"
+                >
+
+                    <div class="profile-avatar">
+
+                        {% if nav_profile and nav_profile.image %}
+
+                            <img
+                                src="{{ nav_profile.image.url }}"
+                                alt="Profile"
+                            >
+
+                        {% else %}
+
+                            <i class="bi bi-person"></i>
+
+                        {% endif %}
+
+                    </div>
+
+                </a>
+
+            </div>
+
         </div>
 
-        <!-- ADD PRODUCT -->
-        <a href="{% url 'listings:add_product' %}"
-           class="btn btn-success btn-sm">
-          + Add
-        </a>
-        <!-- MESSAGES -->
-<a href="{% url 'chat:notifications' %}"
-   style="position:relative; display:inline-block;"
-   class="text-gray-700 dark:text-white">
-
-    <i class="bi bi-chat fs-5"></i>
-
-    {% if unread_message_count > 0 %}
-        <span style="
-            position:absolute;
-            top:-6px;
-            right:-8px;
-            background:red;
-            color:white;
-            border-radius:50%;
-            padding:2px 6px;
-            font-size:12px;">
-            {{ unread_message_count }}
-        </span>
-    {% endif %}
-
-</a>
-        <!-- NOTIFICATIONS -->
-        <a href="{% url 'listings:notifications' %}" style="position:relative; display:inline-block;" class="text-gray-700 dark:text-white">
-          <i class="bi bi-bell fs-5"></i>
- 
-  {% if unread_count > 0 %}
-    <span style="
-        position:absolute;
-        top:-6px;
-        right:-8px;
-        background:red;
-        color:white;
-        border-radius:50%;
-        padding:2px 6px;
-        font-size:12px;">
-        {{ unread_count }}
-    </span>
-  {% endif %}
-  
-        </a>
-
-        <!-- PROFILE -->
-        <a href="{% url 'profile_view' %}">
-          <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-500 flex items-center justify-center">
-            {% if nav_profile and nav_profile.image %}
-              <img src="{{ nav_profile.image.url }}"
-                   class="w-full h-full object-cover">
-            {% else %}
-              <i class="bi bi-person text-white"></i>
-            {% endif %}
-          </div>
-        </a>
-
-      </div>
-
     </div>
-  </div>
 
 </nav>
 
 {% endif %}
 
+
+
 <!-- ================= PAGE CONTENT ================= -->
-<div class="min-h-screen p-4 md:p-6">
-    {% block content %}{% endblock %}
+
+<div class="page-content">
+
+    {% block content %}
+
+    {% endblock %}
+
 </div>
 
+
+
 <!-- ================= SCRIPTS ================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
 <script>
-    // loader
+
+    /* =================================
+       FORM LOADER
+    ================================= */
+
     document.querySelectorAll("form").forEach(form => {
+
         form.addEventListener("submit", function () {
-            const loader = document.getElementById("globalLoader");
-            if (loader) loader.style.display = "flex";
+
+            const loader =
+                document.getElementById("globalLoader");
+
+            if (loader) {
+
+                loader.style.display = "flex";
+
+            }
+
         });
+
     });
 
-    // broken images fallback
-    document.addEventListener("error", function (e) {
-        if (e.target.tagName === "IMG") {
-            e.target.style.display = "none";
-        }
-    }, true);
+
+    /* =================================
+       BROKEN IMAGE FALLBACK
+    ================================= */
+
+    document.addEventListener(
+        "error",
+        function (e) {
+
+            if (e.target.tagName === "IMG") {
+
+                e.target.style.display = "none";
+
+            }
+
+        },
+        true
+    );
+
 </script>
 
+
 </body>
+
 </html>

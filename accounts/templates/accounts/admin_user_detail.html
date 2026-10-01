@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>User Details</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100">
+
+
+<header class="bg-gray-900 text-white">
+
+    <div class="max-w-7xl mx-auto px-6 py-5">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <h1 class="text-2xl font-bold">
+                    User Details
+                </h1>
+
+                <p class="text-gray-400">
+                    {{ user_obj.username }}
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'adminpanel' %}"
+                class="bg-white text-gray-900 px-4 py-2 rounded-lg"
+            >
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+
+
+    <!-- PROFILE -->
+
+    <section class="bg-white rounded-xl shadow p-6">
+
+        <h2 class="text-2xl font-bold mb-6">
+            Complete Profile
+        </h2>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+
+                <p class="text-gray-500">
+                    Username
+                </p>
+
+                <p class="font-semibold">
+                    {{ user_obj.username }}
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <p class="text-gray-500">
+                    Email
+                </p>
+
+                <p class="font-semibold">
+                    {{ user_obj.email }}
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <p class="text-gray-500">
+                    Account Created
+                </p>
+
+                <p class="font-semibold">
+                    {{ user_obj.date_joined|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <p class="text-gray-500">
+                    Account Age
+                </p>
+
+                <p class="font-semibold">
+                    {{ account_age }} days
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <p class="text-gray-500">
+                    Account Status
+                </p>
+
+                {% if user_obj.is_active %}
+
+                    <span class="text-green-600 font-semibold">
+                        Active
+                    </span>
+
+                {% else %}
+
+                    <span class="text-red-600 font-semibold">
+                        Inactive
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div>
+
+                <p class="text-gray-500">
+                    Email Verification
+                </p>
+
+                {% if user_obj.is_email_verified %}
+
+                    <span class="text-green-600 font-semibold">
+                        Verified
+                    </span>
+
+                {% else %}
+
+                    <span class="text-red-600 font-semibold">
+                        Not Verified
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="md:col-span-2">
+
+                <p class="text-gray-500">
+                    Bio
+                </p>
+
+                <p>
+                    {{ profile.bio|default:"No bio provided." }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SALES STATISTICS -->
+
+    <section class="mt-8">
+
+        <h2 class="text-2xl font-bold mb-5">
+            Sales Statistics
+        </h2>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+
+            <div class="bg-white rounded-xl shadow p-5">
+
+                <p class="text-gray-500">
+                    Total Sales
+                </p>
+
+                <p class="text-3xl font-bold">
+                    ৳{{ total_sales }}
+                </p>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow p-5">
+
+                <p class="text-gray-500">
+                    Daily Sales
+                </p>
+
+                <p class="text-3xl font-bold">
+                    ৳{{ daily_sales }}
+                </p>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow p-5">
+
+                <p class="text-gray-500">
+                    Monthly Sales
+                </p>
+
+                <p class="text-3xl font-bold">
+                    ৳{{ monthly_sales }}
+                </p>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow p-5">
+
+                <p class="text-gray-500">
+                    Current Stock
+                </p>
+
+                <p class="text-3xl font-bold">
+                    {{ total_stock }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="mt-8">
+
+        <h2 class="text-2xl font-bold mb-5">
+            Products & Stock
+        </h2>
+
+
+        <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+            <table class="w-full">
+
+                <thead class="bg-gray-900 text-white">
+
+                <tr>
+
+                    <th class="px-4 py-4 text-left">
+                        Product
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Category
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Price
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Current Stock
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Sold
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Status
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for product in products %}
+
+                <tr class="border-b">
+
+                    <td class="px-4 py-4">
+                        {{ product.title }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ product.get_category_display }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        ৳{{ product.price }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ product.stock }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ product.sold_quantity }}
+                    </td>
+
+                    <td class="px-4 py-4">
+
+                        {% if product.stock == 0 %}
+
+                            <span class="text-red-600 font-semibold">
+                                Out of Stock
+                            </span>
+
+                        {% else %}
+
+                            <span class="text-green-600 font-semibold">
+                                In Stock
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="text-center py-8"
+                    >
+                        No products.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ORDERS -->
+
+    <section class="mt-8">
+
+        <h2 class="text-2xl font-bold mb-5">
+            Order History
+        </h2>
+
+
+        <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+            <table class="w-full">
+
+                <thead class="bg-gray-900 text-white">
+
+                <tr>
+
+                    <th class="px-4 py-4 text-left">
+                        Order
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Product
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Buyer
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Quantity
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Total
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Status
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Date
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for order in orders %}
+
+                <tr class="border-b">
+
+                    <td class="px-4 py-4">
+                        #{{ order.id }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ order.product.title }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ order.buyer.username }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ order.quantity }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        ৳{{ order.total_price }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ order.get_status_display }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="text-center py-8"
+                    >
+                        No orders.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- SALES -->
+
+    <section class="mt-8">
+
+        <h2 class="text-2xl font-bold mb-5">
+            Selling Details
+        </h2>
+
+
+        <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+            <table class="w-full">
+
+                <thead class="bg-gray-900 text-white">
+
+                <tr>
+
+                    <th class="px-4 py-4 text-left">
+                        Product
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Buyer
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Quantity
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Unit Price
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Total
+                    </th>
+
+                    <th class="px-4 py-4 text-left">
+                        Sale Date
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for sale in sales %}
+
+                <tr class="border-b">
+
+                    <td class="px-4 py-4">
+                        {{ sale.product.title }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ sale.buyer.username }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ sale.quantity }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        ৳{{ sale.unit_price }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        ৳{{ sale.total_amount }}
+                    </td>
+
+                    <td class="px-4 py-4">
+                        {{ sale.sold_at|date:"d M Y, h:i A" }}
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="text-center py-8"
+                    >
+                        No sales yet.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTIVITY -->
+
+    <section class="mt-8">
+
+        <h2 class="text-2xl font-bold mb-5">
+            Activity History
+        </h2>
+
+
+        <div class="bg-white rounded-xl shadow">
+
+            {% for activity in activities %}
+
+            <div class="border-b px-6 py-5">
+
+                <div class="flex justify-between gap-5">
+
+                    <div>
+
+                        <p class="font-semibold">
+                            {{ activity.action }}
+                        </p>
+
+                        <p class="text-gray-600">
+                            {{ activity.description }}
+                        </p>
+
+                    </div>
+
+                    <p class="text-sm text-gray-500">
+                        {{ activity.created_at|date:"d M Y, h:i A" }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="p-6 text-gray-500">
+                No activity history.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

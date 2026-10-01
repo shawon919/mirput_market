@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-gray-100 text-gray-900">
+
+<div class="min-h-screen">
+
+    <!-- HEADER -->
+
+    <header class="bg-gray-900 text-white">
+
+        <div class="max-w-7xl mx-auto px-6 py-5">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+
+                    <h1 class="text-2xl font-bold">
+                        Admin Dashboard
+                    </h1>
+
+                    <p class="text-gray-400 text-sm">
+                        Food Marketplace Administration
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700"
+                >
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+
+
+        <!-- ================================================= -->
+        <!-- ADMIN DASHBOARD OVERALL -->
+        <!-- ================================================= -->
+
+        <section>
+
+            <h2 class="text-2xl font-bold mb-5">
+                Admin Dashboard Overall
+            </h2>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+
+                <!-- USERS -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Users
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        {{ total_users }}
+                    </p>
+
+                </div>
+
+
+                <!-- PRODUCTS -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Products
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        {{ total_products }}
+                    </p>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Stock
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        {{ total_stock }}
+                    </p>
+
+                </div>
+
+
+                <!-- ORDERS -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Orders
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        {{ total_orders }}
+                    </p>
+
+                </div>
+
+
+                <!-- COMPLETED -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Completed Deliveries
+                    </p>
+
+                    <p class="text-3xl font-bold text-green-600 mt-2">
+                        {{ completed_deliveries }}
+                    </p>
+
+                </div>
+
+
+                <!-- PENDING -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Pending Orders
+                    </p>
+
+                    <p class="text-3xl font-bold text-orange-600 mt-2">
+                        {{ pending_orders }}
+                    </p>
+
+                </div>
+
+
+                <!-- TOTAL SALES -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Sales
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        ৳{{ total_sales }}
+                    </p>
+
+                </div>
+
+
+                <!-- DAILY SALES -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Daily Sales
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        ৳{{ daily_sales }}
+                    </p>
+
+                </div>
+
+
+                <!-- MONTHLY SALES -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Monthly Sales
+                    </p>
+
+                    <p class="text-3xl font-bold mt-2">
+                        ৳{{ monthly_sales }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- WEBSITE REVENUE / PROFIT -->
+        <!-- ================================================= -->
+
+        <section class="mt-12">
+
+            <div class="flex justify-between items-center mb-5">
+
+                <div>
+
+                    <h2 class="text-2xl font-bold">
+                        Website Revenue / Profit
+                    </h2>
+
+                    <p class="text-gray-500 text-sm mt-1">
+                        Website receives 30% of completed sales
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+
+                <!-- TODAY WEBSITE REVENUE -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Today's Website Revenue
+                    </p>
+
+                    <p class="text-3xl font-bold text-green-600 mt-2">
+                        ৳{{ today_app_revenue }}
+                    </p>
+
+                    <p class="text-xs text-gray-400 mt-2">
+                        30% of today's completed sales
+                    </p>
+
+                </div>
+
+
+                <!-- MONTHLY WEBSITE REVENUE -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        This Month's Website Revenue
+                    </p>
+
+                    <p class="text-3xl font-bold text-blue-600 mt-2">
+                        ৳{{ monthly_app_revenue }}
+                    </p>
+
+                    <p class="text-xs text-gray-400 mt-2">
+                        30% of this month's completed sales
+                    </p>
+
+                </div>
+
+
+                <!-- TOTAL WEBSITE REVENUE -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Website Revenue
+                    </p>
+
+                    <p class="text-3xl font-bold text-purple-600 mt-2">
+                        ৳{{ total_app_revenue }}
+                    </p>
+
+                    <p class="text-xs text-gray-400 mt-2">
+                        30% of all completed sales
+                    </p>
+
+                </div>
+
+
+                <!-- TOTAL PRODUCT PROFIT -->
+
+                <div class="bg-white rounded-xl shadow p-5">
+
+                    <p class="text-gray-500">
+                        Total Product Profit
+                    </p>
+
+                    <p class="text-3xl font-bold text-orange-600 mt-2">
+                        ৳{{ total_product_profit }}
+                    </p>
+
+                    <p class="text-xs text-gray-400 mt-2">
+                        Sales minus product cost
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- USER LIST / ADMIN OVERVIEW -->
+        <!-- ================================================= -->
+
+        <section class="mt-12">
+
+            <div class="flex justify-between items-center mb-5">
+
+                <h2 class="text-2xl font-bold">
+                    User List / Admin Overview
+                </h2>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+                <table class="w-full text-left">
+
+                    <thead class="bg-gray-900 text-white">
+
+                        <tr>
+
+                            <th class="px-4 py-3">
+                                User Name
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Account Age
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Total Products
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Current Stock
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Total Sales
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Monthly Sales
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Daily Sales
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Activity Status
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Details
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for item in user_overview %}
+
+                        <tr class="border-b hover:bg-gray-50">
+
+                            <td class="px-4 py-4">
+
+                                <div class="font-semibold">
+                                    {{ item.user.username }}
+                                </div>
+
+                                <div class="text-sm text-gray-500">
+                                    {{ item.user.email }}
+                                </div>
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                {{ item.account_age }} days
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                {{ item.total_products }}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                {{ item.current_stock }}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                ৳{{ item.total_sales }}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                ৳{{ item.monthly_sales }}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                ৳{{ item.daily_sales }}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                {% if item.activity_status == "Active" %}
+
+                                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-700">
+                                        Active
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="px-3 py-1 rounded-full bg-red-100 text-red-700">
+                                        Inactive
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                <a
+                                    href="{% url 'admin_user_detail' item.user.id %}"
+                                    class="bg-gray-900 text-white px-3 py-2 rounded-lg"
+                                >
+                                    View
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="9"
+                                class="text-center py-8 text-gray-500"
+                            >
+                                No users found.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- RECENT ORDERS -->
+        <!-- ================================================= -->
+
+        <section class="mt-12">
+
+            <div class="flex justify-between items-center mb-5">
+
+                <h2 class="text-2xl font-bold">
+                    Orders / Delivery
+                </h2>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+                <table class="w-full text-left">
+
+                    <thead class="bg-gray-900 text-white">
+
+                        <tr>
+
+                            <th class="px-4 py-3">
+                                Order
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Product
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Seller
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Buyer
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Quantity
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Price
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Status
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for order in recent_orders %}
+
+                        <tr class="border-b">
+
+                            <td class="px-4 py-4">
+                                #{{ order.id }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ order.product.title }}
+                            </td>
+
+                            <td class="px-4 py-4">
+
+                                {% if order.product.owner %}
+                                    {{ order.product.owner.username }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ order.buyer.username }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ order.quantity }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                ৳{{ order.total_price }}
+                            </td>
+
+                            <td class="px-4 py-4">
+
+                                {% if order.status == "delivered" %}
+
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+                                        Delivered
+                                    </span>
+
+                                {% elif order.status == "pending" %}
+
+                                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full">
+                                        Pending
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                                        {{ order.get_status_display }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td class="px-4 py-4">
+
+                                {% if order.status != "delivered" and not order.stock_deducted %}
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'complete_delivery' order.id %}"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg"
+                                        >
+                                            Delivery Complete
+                                        </button>
+
+                                    </form>
+
+                                {% else %}
+
+                                    <span class="text-green-600 font-semibold">
+                                        Completed
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="text-center py-8"
+                            >
+                                No orders found.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- RECENT SALES -->
+        <!-- ================================================= -->
+
+        <section class="mt-12">
+
+            <div class="flex justify-between items-center mb-5">
+
+                <h2 class="text-2xl font-bold">
+                    Recent Sales
+                </h2>
+
+                <a
+                    href="{% url 'admin_sales' %}"
+                    class="bg-gray-900 text-white px-4 py-2 rounded-lg"
+                >
+                    Complete Sales History
+                </a>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+                <table class="w-full text-left">
+
+                    <thead class="bg-gray-900 text-white">
+
+                        <tr>
+
+                            <th class="px-4 py-3">
+                                Product
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Seller
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Buyer
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Quantity
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Total
+                            </th>
+
+                            <th class="px-4 py-3">
+                                Sale Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for sale in recent_sales %}
+
+                        <tr class="border-b">
+
+                            <td class="px-4 py-4">
+                                {{ sale.product.title }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ sale.seller.username }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ sale.buyer.username }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ sale.quantity }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                ৳{{ sale.total_amount }}
+                            </td>
+
+                            <td class="px-4 py-4">
+                                {{ sale.sold_at|date:"d M Y, h:i A" }}
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="text-center py-8 text-gray-500"
+                            >
+                                No sales yet.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

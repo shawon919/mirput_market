@@ -1,87 +1,539 @@
 {% extends "accounts/base.html" %}
 {% block content %}
 
+<style>
+
+    body {
+        background: #f7f7f9;
+    }
+
+    .orders-container {
+        max-width: 1050px;
+        margin: 0 auto;
+    }
+
+    /* =========================
+       PAGE TITLE
+    ========================= */
+
+    .orders-title {
+        margin-bottom: 25px;
+    }
+
+    .orders-title h4 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 5px;
+    }
+
+    .orders-title p {
+        color: #777;
+        font-size: 14px;
+        margin: 0;
+    }
+
+
+    /* =========================
+       ORDER CARD
+    ========================= */
+
+    .order-card {
+        background: #800000;
+        border: none;
+        border-radius: 15px;
+        margin-bottom: 18px;
+        overflow: hidden;
+        transition: all 0.25s ease;
+        box-shadow: 0 5px 18px rgba(128, 0, 0, 0.18);
+    }
+
+    .order-card:hover {
+        transform: translateY(-2px);
+        background: #5c0000;
+        box-shadow: 0 9px 25px rgba(92, 0, 0, 0.25);
+    }
+
+    .order-card-body {
+        padding: 22px;
+    }
+
+
+    /* =========================
+       PRODUCT
+    ========================= */
+
+    .product-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .product-name {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .product-info {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+    }
+
+    .product-info strong {
+        color: #ffffff;
+    }
+
+    .product-price {
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .order-status {
+        padding: 7px 13px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: capitalize;
+        white-space: nowrap;
+    }
+
+    .status-pending {
+        background: #fff0b8;
+        color: #735000;
+    }
+
+    .status-processing {
+        background: #d9edff;
+        color: #12588d;
+    }
+
+    .status-shipped {
+        background: #e2ddff;
+        color: #4935a0;
+    }
+
+    .status-cancelled {
+        background: #ffdada;
+        color: #a61919;
+    }
+
+    .status-delivered {
+        background: #d9f5e3;
+        color: #176b38;
+    }
+
+
+    /* =========================
+       DIVIDER
+    ========================= */
+
+    .order-divider {
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
+        margin: 19px 0;
+    }
+
+
+    /* =========================
+       ADDRESS
+    ========================= */
+
+    .address-section {
+        background: rgba(255, 255, 255, 0.10);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 10px;
+        padding: 13px 15px;
+    }
+
+    .address-label {
+        display: block;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    .address-text {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .order-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+    }
+
+    .order-btn {
+        border-radius: 8px;
+        padding: 7px 15px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .view-btn {
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        background: transparent;
+    }
+
+    .view-btn:hover {
+        background: #ffffff;
+        color: #800000;
+    }
+
+    .profile-btn {
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        background: transparent;
+        text-decoration: none;
+    }
+
+    .profile-btn:hover {
+        background: #ffffff;
+        color: #800000 !important;
+        border-color: #ffffff;
+    }
+
+    .cancel-btn {
+        color: #ffffff;
+        border: 1px solid #ffb3b3;
+        background: transparent;
+    }
+
+    .cancel-btn:hover {
+        background: #ffffff;
+        color: #b42323;
+        border-color: #ffffff;
+    }
+
+
+    /* =========================
+       EMPTY STATE
+    ========================= */
+
+    .empty-orders {
+        background: #ffffff;
+        border: 1px solid #e7e7e7;
+        border-radius: 15px;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .empty-icon {
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 15px;
+        border-radius: 50%;
+        background: #f5e8e8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #800000;
+        font-size: 28px;
+    }
+
+    .empty-orders h5 {
+        color: #1a1a1a;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .empty-orders p {
+        color: #777;
+        font-size: 14px;
+        margin: 0;
+    }
+
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    #orderModal .modal-content {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        background: #ffffff;
+    }
+
+    #orderDetailBox {
+        color: #1a1a1a !important;
+    }
+
+    #orderDetailBox h5 {
+        color: #800000;
+        font-size: 20px;
+        font-weight: 700;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    #orderDetailBox p {
+        background: #f8f8f8;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #555;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 576px) {
+
+        .orders-container {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .orders-title h4 {
+            font-size: 22px;
+        }
+
+        .order-card-body {
+            padding: 17px;
+        }
+
+        .product-section {
+            gap: 10px;
+        }
+
+        .product-name {
+            font-size: 16px;
+        }
+
+        .order-status {
+            font-size: 10px;
+            padding: 6px 9px;
+        }
+
+        .order-actions {
+            justify-content: stretch;
+            flex-wrap: wrap;
+        }
+
+        .order-btn {
+            flex: 1;
+            text-align: center;
+        }
+    }
+
+</style>
+
 <div class="container py-4">
 
-<h4 class="fw-bold mb-3">My Orders</h4>
+```
+<div class="orders-container">
 
-{% for o in orders %}
 
-<!-- IMPORTANT: ORDER CARD ID -->
-<div class="card mb-3 shadow-sm" id="order-{{ o.id }}">
+    <!-- PAGE TITLE -->
 
-    <div class="card-body">
+    <div class="orders-title">
 
-        <div class="d-flex justify-content-between">
+        <h4>
+            My Orders
+        </h4>
 
-            <div>
-                <h6 class="mb-1">{{ o.product.title }}</h6>
-                <small class="text-muted">
-                    Qty: {{ o.quantity }} | ? {{ o.product.price }}
-                </small>
+        <p>
+            Track and manage your orders
+        </p>
+
+    </div>
+
+
+    {% for o in orders %}
+
+
+    <!-- ORDER CARD -->
+
+    <div
+        class="order-card"
+        id="order-{{ o.id }}"
+    >
+
+        <div class="order-card-body">
+
+
+            <!-- PRODUCT + STATUS -->
+
+            <div class="product-section">
+
+                <div>
+
+                    <div class="product-name">
+                        {{ o.product.title }}
+                    </div>
+
+                    <div class="product-info">
+
+                        Quantity:
+                        <strong>{{ o.quantity }}</strong>
+
+                        <span class="mx-1">•</span>
+
+                        Price:
+                        <span class="product-price">
+                            ? {{ o.product.price }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <span
+                    class="order-status
+                    {% if o.status == 'pending' %}
+                        status-pending
+                    {% elif o.status == 'processing' %}
+                        status-processing
+                    {% elif o.status == 'shipped' %}
+                        status-shipped
+                    {% elif o.status == 'cancelled' %}
+                        status-cancelled
+                    {% else %}
+                        status-delivered
+                    {% endif %}
+                    "
+                >
+                    {{ o.status }}
+                </span>
+
             </div>
 
-            <span class="badge
-                {% if o.status == 'pending' %} bg-warning text-dark
-                {% elif o.status == 'processing' %} bg-info
-                {% elif o.status == 'shipped' %} bg-primary
-                {% elif o.status == 'cancelled' %} bg-danger
-                {% else %} bg-success
+
+            <hr class="order-divider">
+
+
+            <!-- ADDRESS -->
+
+            <div class="address-section">
+
+                <span class="address-label">
+                    Delivery Address
+                </span>
+
+                <div class="address-text">
+                    {{ o.address }}
+                </div>
+
+            </div>
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="order-actions">
+
+
+                <button
+                    class="btn order-btn view-btn"
+                    onclick="viewOrder({{ o.id }})"
+                >
+                    View Details
+                </button>
+
+
+                <a
+                    href="{% url 'listings:user_profile' o.product.owner.id %}"
+                    class="btn order-btn profile-btn"
+                >
+                    Profile
+                </a>
+
+
+                {% if o.status != "cancelled" and o.status != "delivered" %}
+
+                <button
+                    class="btn order-btn cancel-btn"
+                    onclick="cancelOrder({{ o.id }})"
+                >
+                    Cancel
+                </button>
+
                 {% endif %}
-            ">
-                {{ o.status }}
-            </span>
 
-        </div>
 
-        <hr>
+            </div>
 
-        <div class="small text-muted">
-            Address: {{ o.address }}
-        </div>
-
-        <div class="text-end mt-2 d-flex gap-2 justify-content-end">
-
-            <button class="btn btn-sm btn-outline-primary"
-                    onclick="viewOrder({{ o.id }})">
-                View Details
-            </button>
-            
-<div>
-    <a href="{% url 'listings:user_profile' o.product.owner.id %}"
-       class="btn btn-outline-light btn-sm text-dark">
-        Profile
-    </a>
-</div>
-            
-            {% if o.status != "cancelled" and o.status != "delivered" %}
-            <button class="btn btn-sm btn-outline-danger"
-                    onclick="cancelOrder({{ o.id }})">
-                Cancel
-            </button>
-            {% endif %}
 
         </div>
 
     </div>
 
+
+    {% empty %}
+
+
+    <div class="empty-orders">
+
+        <div class="empty-icon">
+            🛒
+        </div>
+
+        <h5>
+            No Orders Yet
+        </h5>
+
+        <p>
+            Your orders will appear here once you place one.
+        </p>
+
+    </div>
+
+
+    {% endfor %}
+
+
 </div>
-
-{% empty %}
-
-<p class="text-muted">No orders yet</p>
-
-{% endfor %}
+```
 
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="orderModal">
-  <div class="modal-dialog">
-    <div class="modal-content p-3 text-dark" id="orderDetailBox"></div>
-  </div>
-</div>
 
+<div
+    class="modal fade"
+    id="orderModal"
+>
+
+```
+<div class="modal-dialog modal-dialog-centered">
+
+    <div
+        class="modal-content p-3 text-dark"
+        id="orderDetailBox"
+    ></div>
+
+</div>
+```
+
+</div>
 
 <script>
 
@@ -102,11 +554,16 @@ function viewOrder(id){
         `;
 
         let modalEl = document.getElementById("orderModal");
-        let modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+        let modal =
+            bootstrap.Modal.getOrCreateInstance(modalEl);
+
         modal.show();
+
     });
 
 }
+
 
 function cancelOrder(id){
 
@@ -118,21 +575,32 @@ function cancelOrder(id){
 
         if(data.success){
 
-            let el = document.getElementById(`order-${id}`);
+            let el =
+                document.getElementById(`order-${id}`);
 
             if(el){
+
                 el.style.transition = "0.3s";
                 el.style.opacity = "0";
+
                 setTimeout(() => el.remove(), 300);
+
             }
 
         } else {
-            alert(data.message || "Failed to cancel order");
+
+            alert(
+                data.message ||
+                "Failed to cancel order"
+            );
+
         }
 
     })
     .catch(() => {
+
         alert("Server error");
+
     });
 
 }

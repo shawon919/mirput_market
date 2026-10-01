@@ -22,10 +22,10 @@
     <button class="w-full bg-blue-600 text-white p-3">Verify</button>
 </form>
 {% if user %}
-<a href="{% url 'resend' user.id %}">Resend OTP</a>
+<a href="{% url 'resend_otp' user.id %}">Resend OTP</a>
 {% endif %}
 
-<a href="{% url 'resend' user.id %}" class="text-sm text-blue-500">Resend OTP</a>
+<a href="{% url 'resend_otp' user.id %}" class="text-sm text-blue-500">Resend OTP</a>
 </div>
 
 {% endblock %}

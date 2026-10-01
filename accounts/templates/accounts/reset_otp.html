@@ -1,16 +1,167 @@
 {% extends 'accounts/base.html' %}
 {% block content %}
 
-<div class="max-w-md mx-auto bg-white p-6 rounded shadow">
-<h2 class="text-xl font-bold mb-4">Reset OTP</h2>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
 
-<form method="POST">
-    {% csrf_token %}
+    <div class="w-full max-w-md">
 
-    <input name="otp" placeholder="Enter OTP" class="w-full p-3 border mb-3">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
 
-    <button class="w-full bg-blue-600 text-white p-3">Verify OTP</button>
-</form>
+            <!-- Header -->
+            <div class="bg-[#800000] px-8 py-8 text-center">
+
+                <div class="mx-auto mb-4 w-14 h-14 rounded-full
+                            bg-white/10 border border-white/20
+                            flex items-center justify-center">
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-7 h-7 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12h6m-3-3v6
+                               M7 4h10a2 2 0 012 2v12
+                               a2 2 0 01-2 2H7a2 2 0 01-2-2V6
+                               a2 2 0 012-2z"
+                        />
+                    </svg>
+
+                </div>
+
+                <h2 class="text-3xl font-bold text-white">
+                    Verify OTP
+                </h2>
+
+                <p class="mt-2 text-sm text-white/80">
+                    Enter the OTP sent to your email
+                </p>
+
+            </div>
+
+
+            <!-- Form -->
+            <div class="px-8 py-8">
+
+                <form method="POST" class="space-y-5">
+
+                    {% csrf_token %}
+
+
+                    <!-- OTP -->
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Verification Code
+                        </label>
+
+                        <div class="relative">
+
+                            <span class="absolute left-4 top-1/2
+                                         -translate-y-1/2
+                                         text-gray-400">
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M4 7h16
+                                           M4 12h16
+                                           M4 17h10"
+                                    />
+                                </svg>
+
+                            </span>
+
+                            <input
+                                name="otp"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="Enter OTP"
+                                required
+                                class="w-full h-12 pl-12 pr-4
+                                       rounded-xl
+                                       border border-gray-300
+                                       bg-gray-50
+                                       text-gray-900
+                                       placeholder-gray-400
+                                       focus:bg-white
+                                       focus:outline-none
+                                       focus:border-[#800000]
+                                       focus:ring-2
+                                       focus:ring-[#800000]/20
+                                       transition-all duration-200"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Verify Button -->
+                    <button
+                        type="submit"
+                        class="w-full h-12
+                               bg-[#800000]
+                               hover:bg-[#5C0000]
+                               active:bg-[#4A0000]
+                               text-white
+                               rounded-xl
+                               font-semibold
+                               shadow-md
+                               hover:shadow-lg
+                               transition-all duration-200"
+                    >
+                        Verify OTP
+                    </button>
+
+                </form>
+
+
+                <!-- Back -->
+                <div class="mt-7 pt-6 border-t border-gray-100 text-center">
+
+                    <p class="text-sm text-gray-500">
+
+                        Entered the wrong email?
+
+                        <a
+                            href="{% url 'forgot_password' %}"
+                            class="ml-1 font-semibold
+                                   text-[#800000]
+                                   hover:text-[#5C0000]
+                                   transition"
+                        >
+                            Try Again
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+        <p class="text-center text-xs text-gray-400 mt-6">
+            Secure OTP verification
+        </p>
+
+    </div>
 
 </div>
 

@@ -2,257 +2,949 @@
 {% block content %}
 
 <style>
-    .profile-wrap {
-         min-height: 100vh;
-    padding: 40px 15px;
 
-  
-    background: #f3f4f6;
+    * {
+        box-sizing: border-box;
     }
 
-    .dark .profile-wrap {
-    /* DARK MODE */
-    background: #0f172a;
-}
+    .profile-page {
+        min-height: 100vh;
+        background: #ffffff;
+        padding: 55px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .profile-container {
+        width: 100%;
+        max-width: 480px;
+    }
+
+
+    /* ================================
+       PROFILE CARD
+    ================================= */
 
     .profile-card {
-        max-width: 750px;
-        margin: auto;
-        border-radius: 14px;
-        padding: 25px;
-
-        /* DARK MODE FRIENDLY */
-        background: white;
-        color: #111;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid #800000;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(128, 0, 0, 0.10);
     }
 
-    .dark .profile-card {
-        background: #1f2937;
-        color: #f9fafb;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+    /* ================================
+       PROFILE TOP
+    ================================= */
+
+    .profile-top {
+        text-align: center;
+        padding: 38px 30px 30px;
+        border-bottom: 1px solid #800000;
     }
 
-    .top-section {
+
+    /* ================================
+       AVATAR
+    ================================= */
+
+    .avatar-wrapper {
         display: flex;
-        align-items: center;
-        gap: 15px;
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 15px;
+        justify-content: center;
+        margin-bottom: 20px;
     }
 
-    .dark .top-section {
-        border-bottom: 1px solid #374151;
-    }
+    .avatar,
+    .avatar-placeholder {
+        width: 120px;
+        height: 120px;
 
-    .avatar {
-        width: 80px;
-        height: 80px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid #4f46e5;
-        background: #e5e7eb;
+
+        border: 4px solid #ffffff;
+        outline: 3px solid #800000;
+
+        background: #ffffff;
+
+        box-shadow: 0 8px 22px rgba(128, 0, 0, 0.18);
     }
 
+    .avatar-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .avatar-placeholder i {
+        font-size: 48px;
+        color: #800000;
+    }
+
+
+    /* ================================
+       USERNAME
+    ================================= */
+
     .username {
-        font-size: 18px;
-        font-weight: 600;
         margin: 0;
+
+        color: #800000;
+
+        font-size: 23px;
+        font-weight: 700;
+
+        line-height: 1.3;
     }
 
     .email {
-        font-size: 13px;
-        color: #6b7280;
+        margin-top: 7px;
+
+        color: #800000;
+
+        font-size: 14px;
+        font-weight: 400;
     }
 
-    .dark .email {
-        color: #9ca3af;
+
+    /* ================================
+       BIO
+    ================================= */
+
+    .bio-section {
+        padding: 24px 30px 8px;
     }
 
-    .bio-box {
-        margin-top: 15px;
-        padding: 12px;
+    .bio-title {
+        color: #800000;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+
+        margin-bottom: 8px;
+    }
+
+    .bio-text {
+        color: #800000;
+
+        font-size: 14px;
+        line-height: 1.6;
+
+        margin: 0;
+
+        padding: 13px 15px;
+
+        border: 1px solid #800000;
         border-radius: 10px;
+
+        background: #ffffff;
+    }
+
+
+    /* ================================
+       ACCOUNT ACTIONS
+    ================================= */
+
+    .actions-section {
+        padding: 24px 30px 30px;
+    }
+
+    .actions-title {
+        color: #800000;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+
+        margin-bottom: 12px;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+
+    /* ================================
+       ACTION ITEM
+    ================================= */
+
+    .action-item {
+        width: 100%;
+        min-height: 48px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 16px;
+
+        border: 1px solid #800000;
+        border-radius: 10px;
+
+        background: #ffffff;
+        color: #800000;
+
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+
+        cursor: pointer;
+    }
+
+    .action-item:hover {
+        background: #800000;
+        color: #ffffff;
+
+        text-decoration: none;
+    }
+
+    .action-icon {
+        width: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        font-size: 17px;
+    }
+
+    .action-text {
+        flex: 1;
+        text-align: left;
+    }
+
+    .action-arrow {
+        font-size: 13px;
+        opacity: 0.7;
+    }
+
+
+    /* ================================
+       PRIMARY EDIT BUTTON
+    ================================= */
+
+    .edit-action {
+        background: #800000;
+        color: #ffffff;
+        border-color: #800000;
+    }
+
+    .edit-action:hover {
+        background: #5C0000;
+        border-color: #5C0000;
+        color: #ffffff;
+    }
+
+
+    /* ================================
+       LOGOUT
+    ================================= */
+
+    .logout-wrapper {
+        margin-top: 18px;
+        padding-top: 18px;
+
+        border-top: 1px solid #800000;
+    }
+
+    .logout-action {
+        color: #800000;
+        background: #ffffff;
+        border-color: #800000;
+    }
+
+    .logout-action:hover {
+        background: #800000;
+        color: #ffffff;
+        border-color: #800000;
+    }
+
+
+    /* ================================
+       MODAL
+    ================================= */
+
+    .profile-modal {
+        border: 1px solid #800000;
+        border-radius: 16px;
+        overflow: hidden;
+
+        box-shadow: 0 20px 60px rgba(128, 0, 0, 0.20);
+    }
+
+    .modal-header-custom {
+        background: #800000;
+        color: #ffffff;
+
+        padding: 18px 22px;
+
+        border: none;
+    }
+
+    .modal-header-custom h5 {
+        margin: 0;
+
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .modal-header-custom .btn-close {
+        filter: brightness(0) invert(1);
+        opacity: 1;
+    }
+
+    .modal-body-custom {
+        padding: 24px;
+        background: #ffffff;
+    }
+
+    .form-group-custom {
+        margin-bottom: 20px;
+    }
+
+    .form-label-custom {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #800000;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .form-control-custom {
+        width: 100%;
+
+        padding: 11px 13px;
+
+        background: #ffffff;
+        color: #800000;
+
+        border: 1px solid #800000;
+        border-radius: 9px;
+
         font-size: 14px;
 
-        background: #f9fafb;
-        color: #4b5563;
+        outline: none;
+
+        transition: 0.2s;
     }
 
-    .dark .bio-box {
-        background: #111827;
-        color: #d1d5db;
+    .form-control-custom:focus {
+        border-color: #5C0000;
+
+        box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.10);
     }
 
-    .action-bar {
-        margin-top: 20px;
+    textarea.form-control-custom {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .modal-footer-custom {
         display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 9px;
+
+        padding: 16px 24px 22px;
+
+        background: #ffffff;
+        border: none;
     }
 
-    .btn-sm-custom {
-        font-size: 13px;
-        padding: 6px 12px;
+    .cancel-button {
+        padding: 9px 17px;
+
+        background: #ffffff;
+        color: #800000;
+
+        border: 1px solid #800000;
         border-radius: 8px;
+
+        font-size: 13px;
+        font-weight: 600;
     }
+
+    .cancel-button:hover {
+        background: #800000;
+        color: #ffffff;
+    }
+
+    .save-button {
+        padding: 9px 18px;
+
+        background: #800000;
+        color: #ffffff;
+
+        border: 1px solid #800000;
+        border-radius: 8px;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .save-button:hover {
+        background: #5C0000;
+        border-color: #5C0000;
+    }
+
+
+    /* ================================
+       MOBILE
+    ================================= */
+
+    @media (max-width: 576px) {
+
+        .profile-page {
+            padding: 25px 12px;
+        }
+
+        .profile-top {
+            padding: 32px 20px 25px;
+        }
+
+        .bio-section,
+        .actions-section {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .avatar,
+        .avatar-placeholder {
+            width: 105px;
+            height: 105px;
+        }
+
+        .username {
+            font-size: 21px;
+        }
+
+    }
+
 </style>
 
-<div class="profile-wrap">
-<div class="profile-card">
 
-    <!-- TOP -->
-    <div class="top-section">
+<div class="profile-page">
 
-        {% if profile.image %}
-            <img id="avatarPreview"
-                 src="{{ profile.image.url }}"
-                 class="avatar"
-                 alt="profile">
-        {% else %}
-            <div class="avatar d-flex align-items-center justify-content-center">
-                <i class="bi bi-person fs-2 text-secondary"></i>
+    <div class="profile-container">
+
+        <div class="profile-card">
+
+
+            <!-- ============================
+                 PROFILE INFORMATION
+            ============================= -->
+
+            <div class="profile-top">
+
+                <div class="avatar-wrapper">
+
+                    {% if profile.image %}
+
+                        <img
+                            id="avatarPreview"
+                            src="{{ profile.image.url }}"
+                            class="avatar"
+                            alt="profile"
+                        >
+
+                    {% else %}
+
+                        <div
+                            id="avatarPreview"
+                            class="avatar-placeholder"
+                        >
+
+                            <i class="bi bi-person"></i>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <p
+                    class="username"
+                    id="usernameText"
+                >
+
+                    {{ request.user.username }}
+
+                </p>
+
+
+                <div class="email">
+
+                    {{ request.user.email }}
+
+                </div>
+
             </div>
-        {% endif %}
 
-        <div>
-            <p class="username" id="usernameText">
-                {{ request.user.username }}
-            </p>
-            <div class="email">
-                {{ request.user.email }}
+
+            <!-- ============================
+                 BIO
+            ============================= -->
+
+            <div class="bio-section">
+
+                <div class="bio-title">
+
+                    About
+
+                </div>
+
+
+                <p
+                    class="bio-text"
+                    id="bioText"
+                >
+
+                    {{ profile.bio|default:"No bio added yet." }}
+
+                </p>
+
             </div>
+
+
+            <!-- ============================
+                 ACTIONS
+            ============================= -->
+
+            <div class="actions-section">
+
+                <div class="actions-title">
+
+                    Account
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    {% if is_owner %}
+
+                        <button
+                            type="button"
+                            class="action-item edit-action"
+                            onclick="openEditModal()"
+                        >
+
+                            <span class="action-icon">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                            </span>
+
+
+                            <span class="action-text">
+
+                                Edit Profile
+
+                            </span>
+
+
+                            <span class="action-arrow">
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </span>
+
+                        </button>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{% url 'listings:cart' %}"
+                        class="action-item"
+                    >
+
+                        <span class="action-icon">
+
+                            <i class="bi bi-cart3"></i>
+
+                        </span>
+
+
+                        <span class="action-text">
+
+                            My Cart
+
+                        </span>
+
+
+                        <span class="action-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'listings:my_orders' %}"
+                        class="action-item"
+                    >
+
+                        <span class="action-icon">
+
+                            <i class="bi bi-bag-check"></i>
+
+                        </span>
+
+
+                        <span class="action-text">
+
+                            My Orders
+
+                        </span>
+
+
+                        <span class="action-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'listings:seller_orders' %}"
+                        class="action-item"
+                    >
+
+                        <span class="action-icon">
+
+                            <i class="bi bi-truck"></i>
+
+                        </span>
+
+
+                        <span class="action-text">
+
+                            Delivery Pendings
+
+                        </span>
+
+
+                        <span class="action-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+
+                <!-- LOGOUT -->
+
+                <div class="logout-wrapper">
+
+                    <a
+                        href="/accounts/logout/"
+                        class="action-item logout-action"
+                    >
+
+                        <span class="action-icon">
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                        </span>
+
+
+                        <span class="action-text">
+
+                            Logout
+
+                        </span>
+
+
+                        <span class="action-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
-    <!-- BIO -->
-    <div class="bio-box" id="bioText">
-        {{ profile.bio|default:"No bio added yet." }}
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="action-bar">
-
-        {% if is_owner %}
-            <button class="btn btn-primary btn-sm-custom"
-                    onclick="openEditModal()">
-                Edit Profile
-            </button>
-        {% endif %}
-
-        <a href="{% url 'listings:cart' %}"
-           class="btn btn-outline-primary btn-sm-custom">
-            My Cart
-        </a>
-
-        <a href="{% url 'listings:my_orders' %}"
-           class="btn btn-outline-secondary btn-sm-custom">
-            My Orders
-        </a>
-
-        <a href="/accounts/logout/"
-           class="btn btn-outline-danger btn-sm-custom">
-            Logout
-        </a>
-
-    </div>
-
-</div>
 </div>
 
-<!-- MODAL -->
+
+
+<!-- ================================
+     EDIT PROFILE MODAL
+================================= -->
+
 {% if is_owner %}
-<div class="modal fade" id="editProfileModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius: 14px;">
 
-      <div class="modal-header">
-        <h5>Edit Profile</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+<div
+    class="modal fade"
+    id="editProfileModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
 
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="modal-dialog modal-dialog-centered">
 
-        <div class="modal-body">
+        <div class="modal-content profile-modal">
 
-            <div class="mb-3">
-                <label>Username</label>
-                <input type="text"
-                       id="usernameInput"
-                       name="username"
-                       value="{{ request.user.username }}"
-                       class="form-control">
+
+            <!-- MODAL HEADER -->
+
+            <div class="modal-header modal-header-custom">
+
+                <h5>
+
+                    <i class="bi bi-person-gear me-2"></i>
+
+                    Edit Profile
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                >
+                </button>
+
             </div>
 
-            <div class="mb-3">
-                <label>Bio</label>
-                <textarea id="bioInput"
-                          name="bio"
-                          class="form-control">{{ profile.bio }}</textarea>
-            </div>
 
-            <div class="mb-3">
-                <label>Profile Image</label>
-                <input type="file"
-                       id="imageInput"
-                       name="image"
-                       class="form-control">
-            </div>
+            <!-- FORM -->
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="modal-body-custom">
+
+
+                    <!-- USERNAME -->
+
+                    <div class="form-group-custom">
+
+                        <label
+                            for="usernameInput"
+                            class="form-label-custom"
+                        >
+
+                            Username
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="usernameInput"
+                            name="username"
+                            value="{{ request.user.username }}"
+                            class="form-control-custom"
+                        >
+
+                    </div>
+
+
+                    <!-- BIO -->
+
+                    <div class="form-group-custom">
+
+                        <label
+                            for="bioInput"
+                            class="form-label-custom"
+                        >
+
+                            Bio
+
+                        </label>
+
+
+                        <textarea
+                            id="bioInput"
+                            name="bio"
+                            class="form-control-custom"
+                        >{{ profile.bio }}</textarea>
+
+                    </div>
+
+
+                    <!-- IMAGE -->
+
+                    <div class="form-group-custom">
+
+                        <label
+                            for="imageInput"
+                            class="form-label-custom"
+                        >
+
+                            Profile Image
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="imageInput"
+                            name="image"
+                            class="form-control-custom"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- MODAL FOOTER -->
+
+                <div class="modal-footer-custom">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        data-bs-dismiss="modal"
+                    >
+
+                        Cancel
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                        onclick="updatePreview()"
+                    >
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
-
-        <div class="modal-footer">
-            <button type="button"
-                    class="btn btn-light"
-                    data-bs-dismiss="modal">
-                Cancel
-            </button>
-
-            <button type="submit"
-                    class="btn btn-success"
-                    onclick="updatePreview()">
-                Save Changes
-            </button>
-        </div>
-
-      </form>
 
     </div>
-  </div>
+
 </div>
+
 {% endif %}
 
+
+
 <script>
+
 let modal;
 
+
 document.addEventListener("DOMContentLoaded", function () {
-    const modalEl = document.getElementById('editProfileModal');
-    if (modalEl) modal = new bootstrap.Modal(modalEl);
+
+    const modalEl =
+        document.getElementById('editProfileModal');
+
+    if (modalEl) {
+
+        modal =
+            new bootstrap.Modal(modalEl);
+
+    }
+
 });
 
+
 function openEditModal() {
-    if (modal) modal.show();
+
+    if (modal) {
+
+        modal.show();
+
+    }
+
 }
 
+
 function updatePreview() {
+
     document.getElementById("usernameText").innerText =
         document.getElementById("usernameInput").value;
+
 
     document.getElementById("bioText").innerText =
         document.getElementById("bioInput").value;
 
-    let input = document.getElementById("imageInput");
+
+    let input =
+        document.getElementById("imageInput");
+
 
     if (input.files && input.files[0]) {
-        let reader = new FileReader();
+
+        let reader =
+            new FileReader();
+
+
         reader.onload = function (e) {
-            document.getElementById("avatarPreview").src = e.target.result;
+
+            const avatar =
+                document.getElementById("avatarPreview");
+
+            if (avatar) {
+
+                if (avatar.tagName === "IMG") {
+
+                    avatar.src =
+                        e.target.result;
+
+                }
+
+            }
+
         };
+
+
         reader.readAsDataURL(input.files[0]);
+
     }
+
 }
+
 </script>
 
 {% endblock %}

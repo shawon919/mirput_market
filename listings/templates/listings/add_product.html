@@ -1,52 +1,655 @@
 {% extends "accounts/base.html" %}
 {% block content %}
 
-<div class="max-w-xl mx-auto bg-gray-900 p-6 rounded-xl shadow">
+<div class="add-product-page">
 
-    <h1 class="text-2xl font-bold mb-4">➕ Add Product</h1>
+    <div class="product-form-card">
 
-    <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()" class="space-y-4">
+        <!-- HEADER -->
+        <div class="form-header">
 
-        {% csrf_token %}
+            <div class="header-icon">
+                <i class="bi bi-plus-lg"></i>
+            </div>
 
-        <input type="text" name="title"
-               placeholder="Product Title"
-               class="w-full border p-2 rounded bg-gray-800">
+            <div>
+                <h1>Add Product</h1>
+                <p>Provide the details below to publish your product.</p>
+            </div>
 
-        <textarea name="description"
-                  placeholder="Description"
-                  class="w-full border p-2 rounded bg-gray-800"></textarea>
+        </div>
 
-        <select name="category" class="w-full border p-2 rounded bg-gray-800">
-            <option value="veg">Vegetarian</option>
-            <option value="nonveg">Non-Vegetarian</option>
-            <option value="dessert">Dessert</option>
-            <option value="beverage">Beverage</option>
-        </select>
 
-        <input type="number" name="price"
-               placeholder="Price"
-               class="w-full border p-2 rounded bg-gray-800">
+        <!-- FORM -->
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            onsubmit="showLoader()"
+            class="product-form"
+        >
 
-        <input type="number" name="stock"
-               placeholder="Stock"
-               class="w-full border p-2 rounded bg-gray-800">
+            {% csrf_token %}
 
-        <input type="file" name="image"
-               class="w-full border p-2 rounded bg-gray-800">
 
-        <button class="bg-green-500 text-white w-full py-2 rounded">
-            Publish Product
-        </button>
+            <!-- TITLE -->
+            <div class="form-group">
 
-    </form>
+                <label for="title">
+                    Product Title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Enter product title"
+                    class="form-input"
+                >
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Describe your product"
+                    class="form-input description-input"
+                ></textarea>
+
+            </div>
+
+
+            <!-- CATEGORY -->
+            <div class="form-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select
+                    id="category"
+                    name="category"
+                    class="form-input"
+                >
+
+                    <option value="veg">
+                        Vegetarian
+                    </option>
+
+                    <option value="nonveg">
+                        Non-Vegetarian
+                    </option>
+
+                    <option value="dessert">
+                        Dessert
+                    </option>
+
+                    <option value="beverage">
+                        Beverage
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PRICE + STOCK -->
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="price">
+                        Price
+                    </label>
+
+                    <div class="input-with-symbol">
+
+                        <span>৳</span>
+
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            placeholder="0"
+                            class="form-input"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="stock">
+                        Stock
+                    </label>
+
+                    <input
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        placeholder="0"
+                        class="form-input"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE -->
+            <div class="form-group">
+
+                <label for="image">
+                    Product Image
+                </label>
+
+                <label for="image" class="image-upload">
+
+                    <div class="upload-icon">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                    </div>
+
+                    <div>
+                        <strong>Choose product image</strong>
+                        <span>Click here to upload an image</span>
+                    </div>
+
+                </label>
+
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    class="file-input"
+                    onchange="updateFileName(this)"
+                >
+
+                <div id="fileName" class="file-name">
+                    No image selected
+                </div>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+            <button
+                type="submit"
+                id="publishButton"
+                class="publish-btn"
+            >
+
+                <i class="bi bi-check2-circle"></i>
+
+                <span id="buttonText">
+                    Publish Product
+                </span>
+
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
 
-<script>
-function showLoader(){
-    document.body.style.opacity = "0.6";
+
+<style>
+
+/* =========================================
+   PAGE
+========================================= */
+
+.add-product-page {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 35px 20px 60px;
+
+    color: #5C0000;
 }
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.product-form-card {
+    background: #FFFFFF;
+
+    border: 1px solid #800000;
+
+    border-radius: 14px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 8px 25px rgba(128, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.form-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid #800000;
+}
+
+.header-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #800000;
+
+    color: #FFFFFF;
+
+    border-radius: 10px;
+
+    font-size: 21px;
+}
+
+.form-header h1 {
+    margin: 0;
+
+    color: #5C0000;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.form-header p {
+    margin: 4px 0 0;
+
+    color: #800000;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.product-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.form-group label {
+    color: #5C0000;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.form-input {
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 10px 12px;
+
+    background: #FFFFFF;
+
+    color: #5C0000;
+
+    border: 1px solid #800000;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.2s ease;
+
+    box-sizing: border-box;
+}
+
+.form-input::placeholder {
+    color: #800000;
+    opacity: 0.65;
+}
+
+.form-input:focus {
+    border-color: #5C0000;
+
+    box-shadow:
+        0 0 0 3px rgba(128, 0, 0, 0.08);
+}
+
+.description-input {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+
+/* =========================================
+   PRICE + STOCK
+========================================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px;
+}
+
+.input-with-symbol {
+    position: relative;
+}
+
+.input-with-symbol > span {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #800000;
+
+    font-weight: 700;
+
+    z-index: 1;
+}
+
+.input-with-symbol .form-input {
+    padding-left: 32px;
+}
+
+
+/* =========================================
+   SELECT
+========================================= */
+
+select.form-input {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   IMAGE UPLOAD
+========================================= */
+
+.file-input {
+    display: none;
+}
+
+.image-upload {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-height: 70px;
+
+    padding: 12px 15px;
+
+    border: 1px dashed #800000;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.image-upload:hover {
+    background: #FFFFFF;
+
+    border-color: #5C0000;
+}
+
+.upload-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #800000;
+
+    color: #FFFFFF;
+
+    border-radius: 8px;
+
+    font-size: 19px;
+}
+
+.image-upload strong {
+    display: block;
+
+    color: #5C0000;
+
+    font-size: 14px;
+}
+
+.image-upload span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #800000;
+
+    font-size: 12px;
+}
+
+.file-name {
+    margin-top: 2px;
+
+    color: #800000;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   PUBLISH BUTTON
+========================================= */
+
+.publish-btn {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    min-height: 46px;
+
+    margin-top: 5px;
+
+    border: 1px solid #800000;
+
+    border-radius: 8px;
+
+    background: #800000;
+
+    color: #FFFFFF;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.publish-btn:hover {
+    background: #5C0000;
+
+    border-color: #5C0000;
+}
+
+.publish-btn:disabled {
+    opacity: 0.7;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading-spinner {
+    width: 17px;
+    height: 17px;
+
+    border: 2px solid #FFFFFF;
+
+    border-top-color: transparent;
+
+    border-radius: 50%;
+
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .add-product-page {
+        padding: 20px 14px 40px;
+    }
+
+    .product-form-card {
+        padding: 20px 16px;
+    }
+
+    .form-header {
+        align-items: flex-start;
+    }
+
+    .form-header h1 {
+        font-size: 21px;
+    }
+
+    .form-header p {
+        font-size: 12px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+function showLoader() {
+
+    const button = document.getElementById("publishButton");
+
+    const buttonText = document.getElementById("buttonText");
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.innerHTML = `
+            <span class="loading-spinner"></span>
+            <span>Publishing...</span>
+        `;
+
+    }
+
+}
+
+
+function updateFileName(input) {
+
+    const fileName = document.getElementById("fileName");
+
+    if (!fileName) return;
+
+
+    if (input.files && input.files.length > 0) {
+
+        fileName.textContent =
+            input.files[0].name;
+
+    } else {
+
+        fileName.textContent =
+            "No image selected";
+
+    }
+
+}
+
 </script>
 
 {% endblock %}

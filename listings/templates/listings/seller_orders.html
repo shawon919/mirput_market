@@ -1,0 +1,1171 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+
+<style>
+    :root {
+        --maroon: #800000;
+        --maroon-dark: #5c0000;
+        --maroon-light: #f8eeee;
+        --maroon-soft: #fff8f8;
+
+        --white: #ffffff;
+        --background: #f6f7f9;
+
+        --text: #1a1a1a;
+        --muted: #777777;
+        --border: #e8e8e8;
+
+        --green: #16803c;
+        --green-light: #edf8f1;
+
+        --yellow: #a66a00;
+        --yellow-light: #fff7df;
+    }
+
+
+    body {
+        background: var(--background);
+        color: var(--text);
+    }
+
+
+    /* =====================================
+       MAIN PAGE
+    ===================================== */
+
+    .delivery-page {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 18px 60px;
+    }
+
+
+    /* =====================================
+       PAGE HEADER
+    ===================================== */
+
+    .delivery-header {
+        background: linear-gradient(
+            135deg,
+            var(--maroon),
+            var(--maroon-dark)
+        );
+
+        border-radius: 24px;
+
+        padding: 30px;
+
+        color: white;
+
+        margin-bottom: 25px;
+
+        position: relative;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 15px 35px rgba(128, 0, 0, 0.18);
+    }
+
+
+    .delivery-header::before {
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.06);
+
+        right: -70px;
+        top: -100px;
+    }
+
+
+    .delivery-header::after {
+        content: "";
+
+        position: absolute;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        right: 130px;
+        bottom: -100px;
+    }
+
+
+    .header-content {
+        position: relative;
+
+        z-index: 2;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 20px;
+    }
+
+
+    .header-left {
+        display: flex;
+
+        align-items: center;
+
+        gap: 18px;
+    }
+
+
+    .header-icon {
+        width: 62px;
+        height: 62px;
+
+        min-width: 62px;
+
+        border-radius: 18px;
+
+        background: rgba(255, 255, 255, 0.14);
+
+        border: 1px solid rgba(255, 255, 255, 0.18);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 25px;
+    }
+
+
+    .header-label {
+        font-size: 11px;
+
+        font-weight: 700;
+
+        letter-spacing: 1.4px;
+
+        text-transform: uppercase;
+
+        opacity: 0.72;
+
+        margin-bottom: 5px;
+    }
+
+
+    .header-title {
+        font-size: 29px;
+
+        font-weight: 800;
+
+        margin: 0;
+    }
+
+
+    .header-description {
+        margin: 7px 0 0;
+
+        font-size: 13px;
+
+        color: rgba(255, 255, 255, 0.76);
+    }
+
+
+    .header-badge {
+        position: relative;
+
+        z-index: 2;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 10px 15px;
+
+        border-radius: 25px;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border: 1px solid rgba(255, 255, 255, 0.18);
+
+        font-size: 12px;
+
+        font-weight: 650;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================
+       ORDERS CONTAINER
+    ===================================== */
+
+    .orders-container {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 17px;
+    }
+
+
+    /* =====================================
+       ORDER CARD
+    ===================================== */
+
+    .delivery-card {
+        background: var(--white);
+
+        border: 1px solid var(--border);
+
+        border-radius: 21px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.05);
+
+        transition: all 0.25s ease;
+    }
+
+
+    .delivery-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 14px 32px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =====================================
+       CARD TOP
+    ===================================== */
+
+    .card-top {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding: 19px 22px;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+
+    .order-heading {
+        display: flex;
+
+        align-items: center;
+
+        gap: 13px;
+    }
+
+
+    .order-icon {
+        width: 45px;
+        height: 45px;
+
+        min-width: 45px;
+
+        border-radius: 13px;
+
+        background: var(--maroon-light);
+
+        color: var(--maroon);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 17px;
+    }
+
+
+    .order-label {
+        font-size: 11px;
+
+        color: #999;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+
+        font-weight: 700;
+
+        margin-bottom: 3px;
+    }
+
+
+    .order-number {
+        font-size: 17px;
+
+        font-weight: 800;
+
+        color: #222;
+    }
+
+
+    /* =====================================
+       STATUS
+    ===================================== */
+
+    .status-badge {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 7px 12px;
+
+        border-radius: 20px;
+
+        background: var(--maroon-light);
+
+        color: var(--maroon);
+
+        font-size: 11px;
+
+        font-weight: 750;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.3px;
+    }
+
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: var(--maroon);
+    }
+
+
+    /* =====================================
+       CARD BODY
+    ===================================== */
+
+    .card-body-custom {
+        padding: 20px 22px;
+    }
+
+
+    /* =====================================
+       INFORMATION GRID
+    ===================================== */
+
+    .order-info-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 13px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .info-box {
+        background: #fafafa;
+
+        border: 1px solid #eeeeee;
+
+        border-radius: 13px;
+
+        padding: 13px 15px;
+    }
+
+
+    .info-label {
+        display: flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        color: #999;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .info-label i {
+        color: var(--maroon);
+    }
+
+
+    .info-value {
+        color: #222;
+
+        font-size: 13px;
+
+        font-weight: 650;
+
+        word-break: break-word;
+    }
+
+
+    /* =====================================
+       DELIVERY STATUS AREA
+    ===================================== */
+
+    .delivery-status-box {
+        border-radius: 15px;
+
+        padding: 16px;
+
+        margin-top: 5px;
+
+        border: 1px solid var(--border);
+    }
+
+
+    .delivery-status-title {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        font-size: 13px;
+
+        font-weight: 750;
+
+        color: #222;
+
+        margin-bottom: 12px;
+    }
+
+
+    .delivery-status-title i {
+        color: var(--maroon);
+    }
+
+
+    /* SUCCESS */
+
+    .confirmation-success {
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        background: var(--green-light);
+
+        color: var(--green);
+
+        border: 1px solid #d7efdf;
+
+        border-radius: 11px;
+
+        padding: 11px 13px;
+
+        font-size: 12px;
+
+        font-weight: 650;
+
+        margin-bottom: 10px;
+    }
+
+
+    .confirmation-success:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .confirmation-success i {
+        font-size: 16px;
+    }
+
+
+    /* WARNING */
+
+    .confirmation-warning {
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        background: var(--yellow-light);
+
+        color: var(--yellow);
+
+        border: 1px solid #f0e2b8;
+
+        border-radius: 11px;
+
+        padding: 11px 13px;
+
+        font-size: 12px;
+
+        font-weight: 650;
+    }
+
+
+    .confirmation-warning i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================
+       CONFIRM BUTTON
+    ===================================== */
+
+    .confirm-form {
+        margin: 0;
+    }
+
+
+    .confirm-button {
+        width: 100%;
+
+        height: 47px;
+
+        border: none;
+
+        border-radius: 11px;
+
+        background: var(--maroon);
+
+        color: white;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 9px;
+
+        font-size: 13px;
+
+        font-weight: 750;
+
+        cursor: pointer;
+
+        transition: all 0.25s ease;
+
+        box-shadow:
+            0 7px 17px rgba(128, 0, 0, 0.15);
+    }
+
+
+    .confirm-button:hover {
+        background: var(--maroon-dark);
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 10px 22px rgba(128, 0, 0, 0.22);
+    }
+
+
+    /* =====================================
+       EMPTY STATE
+    ===================================== */
+
+    .empty-state {
+        background: var(--white);
+
+        border: 1px solid var(--border);
+
+        border-radius: 23px;
+
+        padding: 70px 25px;
+
+        text-align: center;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.05);
+    }
+
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+
+        margin: 0 auto 18px;
+
+        border-radius: 24px;
+
+        background: var(--maroon-light);
+
+        color: var(--maroon);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 31px;
+    }
+
+
+    .empty-state h4 {
+        margin: 0 0 8px;
+
+        font-size: 19px;
+
+        font-weight: 800;
+
+        color: #222;
+    }
+
+
+    .empty-state p {
+        margin: 0 auto;
+
+        max-width: 400px;
+
+        color: #888;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =====================================
+       RESPONSIVE
+    ===================================== */
+
+    @media (max-width: 768px) {
+
+        .delivery-page {
+            margin: 22px auto;
+
+            padding: 0 12px 40px;
+        }
+
+
+        .delivery-header {
+            padding: 23px 20px;
+
+            border-radius: 20px;
+        }
+
+
+        .header-icon {
+            width: 52px;
+            height: 52px;
+
+            min-width: 52px;
+
+            border-radius: 15px;
+
+            font-size: 21px;
+        }
+
+
+        .header-title {
+            font-size: 23px;
+        }
+
+
+        .header-description {
+            font-size: 12px;
+        }
+
+
+        .header-badge {
+            display: none;
+        }
+
+
+        .delivery-card {
+            border-radius: 18px;
+        }
+
+
+        .card-top {
+            padding: 16px;
+
+            align-items: flex-start;
+        }
+
+
+        .card-body-custom {
+            padding: 17px;
+        }
+
+
+        .order-info-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+        .header-left {
+            gap: 12px;
+        }
+
+
+        .header-label {
+            font-size: 9px;
+        }
+
+
+        .header-title {
+            font-size: 21px;
+        }
+
+
+        .header-description {
+            font-size: 11px;
+        }
+
+
+        .order-heading {
+            gap: 10px;
+        }
+
+
+        .order-icon {
+            width: 40px;
+            height: 40px;
+
+            min-width: 40px;
+
+            font-size: 15px;
+        }
+
+
+        .order-number {
+            font-size: 15px;
+        }
+
+
+        .status-badge {
+            font-size: 9px;
+
+            padding: 6px 8px;
+        }
+
+    }
+</style>
+
+
+<div class="delivery-page">
+
+
+    <!-- =====================================
+         HEADER
+    ===================================== -->
+
+    <div class="delivery-header">
+
+        <div class="header-content">
+
+            <div class="header-left">
+
+                <div class="header-icon">
+
+                    <i class="fas fa-truck"></i>
+
+                </div>
+
+
+                <div>
+
+                    <div class="header-label">
+                        Seller Dashboard
+                    </div>
+
+                    <h1 class="header-title">
+                        Delivery Pendings
+                    </h1>
+
+                    <p class="header-description">
+                        Review and confirm your pending deliveries.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-badge">
+
+                <i class="fas fa-clock"></i>
+
+                Delivery Management
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% if orders %}
+
+
+        <!-- =====================================
+             ORDERS
+        ===================================== -->
+
+        <div class="orders-container">
+
+
+            {% for order in orders %}
+
+
+                <div class="delivery-card">
+
+
+                    <!-- ==============================
+                         CARD HEADER
+                    ============================== -->
+
+                    <div class="card-top">
+
+                        <div class="order-heading">
+
+                            <div class="order-icon">
+
+                                <i class="fas fa-box"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="order-label">
+                                    Order
+                                </div>
+
+                                <div class="order-number">
+                                    #{{ order.id }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="status-badge">
+
+                            <span class="status-dot"></span>
+
+                            {{ order.status }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==============================
+                         CARD BODY
+                    ============================== -->
+
+                    <div class="card-body-custom">
+
+
+                        <!-- INFORMATION -->
+
+                        <div class="order-info-grid">
+
+
+                            <!-- PRODUCT -->
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+
+                                    <i class="fas fa-box-open"></i>
+
+                                    Product
+
+                                </div>
+
+                                <div class="info-value">
+
+                                    {{ order.product.title }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- BUYER -->
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+
+                                    <i class="fas fa-user"></i>
+
+                                    Buyer
+
+                                </div>
+
+                                <div class="info-value">
+
+                                    {{ order.buyer.username }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- QUANTITY -->
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+
+                                    <i class="fas fa-layer-group"></i>
+
+                                    Quantity
+
+                                </div>
+
+                                <div class="info-value">
+
+                                    {{ order.quantity }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+
+                                    <i class="fas fa-circle-check"></i>
+
+                                    Order Status
+
+                                </div>
+
+                                <div class="info-value">
+
+                                    {{ order.status }}
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================
+                             DELIVERY CONFIRMATION
+                        ================================= -->
+
+                        <div class="delivery-status-box">
+
+
+                            <div class="delivery-status-title">
+
+                                <i class="fas fa-clipboard-check"></i>
+
+                                Delivery Confirmation
+
+                            </div>
+
+
+                            {% if order.delivery_confirmation %}
+
+
+                                {% if order.delivery_confirmation.seller_confirmed_at %}
+
+
+                                    <!-- SELLER CONFIRMED -->
+
+                                    <div class="confirmation-success">
+
+                                        <i class="fas fa-circle-check"></i>
+
+                                        <span>
+                                            Seller: Delivery Confirmed
+                                        </span>
+
+                                    </div>
+
+
+                                    {% if order.delivery_confirmation.admin_confirmed_at %}
+
+
+                                        <!-- ADMIN CONFIRMED -->
+
+                                        <div class="confirmation-success">
+
+                                            <i class="fas fa-shield-check"></i>
+
+                                            <span>
+                                                Admin: Delivery Completed
+                                            </span>
+
+                                        </div>
+
+
+                                    {% else %}
+
+
+                                        <!-- WAITING ADMIN -->
+
+                                        <div class="confirmation-warning">
+
+                                            <i class="fas fa-clock"></i>
+
+                                            <span>
+                                                Waiting for Admin Confirmation
+                                            </span>
+
+                                        </div>
+
+
+                                    {% endif %}
+
+
+                                {% else %}
+
+
+                                    <!-- SELLER NOT CONFIRMED -->
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'listings:seller_confirm_delivery' order.id %}"
+                                        class="confirm-form"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="confirm-button"
+                                        >
+
+                                            <i class="fas fa-check"></i>
+
+                                            Confirm Delivery
+
+                                        </button>
+
+                                    </form>
+
+
+                                {% endif %}
+
+
+                            {% else %}
+
+
+                                <!-- NO CONFIRMATION RECORD -->
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'listings:seller_confirm_delivery' order.id %}"
+                                    class="confirm-form"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="confirm-button"
+                                    >
+
+                                        <i class="fas fa-check"></i>
+
+                                        Confirm Delivery
+
+                                    </button>
+
+                                </form>
+
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- =====================================
+             EMPTY STATE
+        ===================================== -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fas fa-truck-ramp-box"></i>
+
+            </div>
+
+
+            <h4>
+                No Pending Deliveries
+            </h4>
+
+
+            <p>
+                You currently have no deliveries waiting for confirmation.
+                New pending deliveries will appear here.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

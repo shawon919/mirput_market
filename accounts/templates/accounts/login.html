@@ -1,84 +1,375 @@
-<script src="https://cdn.tailwindcss.com"></script>
 
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-black px-6">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="w-full max-w-xl bg-gray-800 p-12 lg:p-8 rounded-3xl shadow-2xl border border-gray-700">
+<head>
 
-        <h2 class="text-5xl lg:text-3xl font-bold text-center mb-12 lg:mb-8 text-white">
-            Login
-        </h2>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <form method="POST" class="space-y-10 lg:space-y-6">
-            {% csrf_token %}
+    <title>Login</title>
 
-            <input
-                name="email"
-                placeholder="Email"
-                class="w-full p-8 lg:p-4 text-2xl lg:text-base bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-3xl focus:outline-none focus:ring-4 focus:ring-blue-500"
-            >
+    <script src="https://cdn.tailwindcss.com"></script>
 
-            <div class="relative">
-                <input
-                    id="loginPassword"
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    class="w-full p-8 lg:p-4 text-2xl lg:text-base bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-3xl pr-24 focus:outline-none focus:ring-4 focus:ring-blue-500"
-                >
+</head>
 
-                <button
-                    type="button"
-                    onclick="togglePassword('loginPassword')"
-                    class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
-                        <circle cx="12" cy="12" r="3"/>
+
+<body>
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+
+    <!-- Login Card -->
+    <div class="w-full max-w-md">
+
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+
+
+            <!-- Header -->
+            <div class="bg-[#800000] px-8 py-8 text-center">
+
+                <div class="mx-auto mb-4 w-14 h-14 rounded-full
+                            bg-white/10 border border-white/20
+                            flex items-center justify-center">
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-7 h-7 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6
+                               A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6
+                               a2.25 2.25 0 002.25-2.25V15
+                               M12 15l3-3m0 0l-3-3m3 3H3"
+                        />
+
                     </svg>
-                </button>
+
+                </div>
+
+                <h2 class="text-3xl font-bold text-white">
+                    Welcome Back
+                </h2>
+
+                <p class="mt-2 text-sm text-white/80">
+                    Login to your account to continue
+                </p>
+
             </div>
 
-            <button
-                type="submit"
-                class="w-full bg-blue-600 text-white py-8 lg:py-3 rounded-3xl font-bold text-3xl lg:text-base hover:bg-blue-700 transition"
-            >
-                Login
-            </button>
-        </form>
 
-        {% if messages %}
-        <div class="mt-10 space-y-4">
-            {% for message in messages %}
-                {% if request.resolver_match.url_name == 'login' %}
-                <div class="p-6 lg:p-3 rounded-2xl text-xl lg:text-sm bg-red-900/40 border border-red-700 text-red-300">
-                    {{ message }}
+            <!-- Form Area -->
+            <div class="px-8 py-8">
+
+                <form
+                    method="POST"
+                    action="{% url 'login' %}"
+                    class="space-y-5"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- Email -->
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Email Address
+                        </label>
+
+                        <div class="relative">
+
+                            <span class="absolute left-4 top-1/2
+                                         -translate-y-1/2 text-gray-400">
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                >
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3 8l9 6 9-6
+                                           M5 19h14a2 2 0 002-2V7
+                                           a2 2 0 00-2-2H5
+                                           a2 2 0 00-2 2v10
+                                           a2 2 0 002 2z"
+                                    />
+
+                                </svg>
+
+                            </span>
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                                class="w-full h-12 pl-12 pr-4 rounded-xl
+                                       border border-gray-300
+                                       bg-gray-50 text-gray-900
+                                       placeholder-gray-400
+                                       focus:bg-white
+                                       focus:outline-none
+                                       focus:border-[#800000]
+                                       focus:ring-2 focus:ring-[#800000]/20
+                                       transition"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Password
+                        </label>
+
+                        <div class="relative">
+
+                            <span class="absolute left-4 top-1/2
+                                         -translate-y-1/2 text-gray-400">
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                >
+
+                                    <rect
+                                        x="4"
+                                        y="10"
+                                        width="16"
+                                        height="10"
+                                        rx="2"
+                                    />
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M8 10V7a4 4 0 018 0v3"
+                                    />
+
+                                </svg>
+
+                            </span>
+
+
+                            <input
+                                id="loginPassword"
+                                name="password"
+                                type="password"
+                                placeholder="Enter your password"
+                                required
+                                class="w-full h-12 pl-12 pr-12 rounded-xl
+                                       border border-gray-300
+                                       bg-gray-50 text-gray-900
+                                       placeholder-gray-400
+                                       focus:bg-white
+                                       focus:outline-none
+                                       focus:border-[#800000]
+                                       focus:ring-2 focus:ring-[#800000]/20
+                                       transition"
+                            >
+
+
+                            <!-- Password Toggle -->
+                            <button
+                                type="button"
+                                onclick="togglePassword('loginPassword')"
+                                class="absolute right-4 top-1/2
+                                       -translate-y-1/2
+                                       text-gray-400
+                                       hover:text-[#800000]
+                                       transition"
+                            >
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="21"
+                                    height="21"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                >
+
+                                    <path
+                                        d="M1 12s4-7 11-7
+                                           11 7 11 7-4 7-11 7
+                                           S1 12 1 12z"
+                                    />
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="3"
+                                    />
+
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Forgot Password -->
+                    <div class="flex justify-end pt-1">
+
+                        <a
+                            href="{% url 'forgot_password' %}"
+                            class="text-sm font-semibold
+                                   text-[#800000]
+                                   hover:text-[#5C0000]
+                                   transition"
+                        >
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login Button -->
+                    <button
+                        type="submit"
+                        class="w-full h-12 mt-2
+                               bg-[#800000]
+                               hover:bg-[#5C0000]
+                               active:bg-[#4A0000]
+                               text-white
+                               rounded-xl
+                               font-semibold
+                               shadow-md
+                               hover:shadow-lg
+                               transition-all duration-200"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <!-- Django Messages -->
+                {% if messages %}
+
+                <div class="mt-6 space-y-3">
+
+                    {% for message in messages %}
+
+                        {% if request.resolver_match.url_name == 'login' %}
+
+                        <div class="flex items-start gap-3
+                                    p-4 rounded-xl
+                                    bg-red-50
+                                    border border-red-200
+                                    text-red-700
+                                    text-sm">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-5 h-5 flex-shrink-0 mt-0.5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 9v3.75m0 3h.008
+                                       M10.29 3.86L1.82 18
+                                       a2 2 0 001.71 3h16.94
+                                       a2 2 0 001.71-3L13.71 3.86
+                                       a2 2 0 00-3.42 0z"
+                                />
+
+                            </svg>
+
+                            <span>
+                                {{ message }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
                 </div>
+
                 {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
 
-        <div class="mt-12 text-center text-2xl lg:text-base space-y-6">
-            <a href="{% url 'forgot' %}" class="text-blue-400 hover:text-blue-300">
-                Forgot Password?
-            </a>
 
-            <p class="text-gray-300">
-                Don’t have an account?
-                <a href="{% url 'register' %}" class="text-blue-400 font-bold hover:text-blue-300">
-                    Register
-                </a>
-            </p>
+                <!-- Register -->
+                <div class="mt-7 text-center">
+
+                    <p class="text-sm text-gray-500">
+
+                        Don't have an account?
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="ml-1 font-semibold
+                                   text-[#800000]
+                                   hover:text-[#5C0000]
+                                   transition"
+                        >
+                            Create Account
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
+
+
+        <!-- Bottom Text -->
+        <p class="text-center text-xs text-gray-400 mt-6">
+            Secure account login
+        </p>
 
     </div>
+
 </div>
 
+
 <script>
+
 function togglePassword(fieldId) {
+
     const input = document.getElementById(fieldId);
-    input.type = input.type === "password" ? "text" : "password";
+
+    input.type =
+        input.type === "password"
+            ? "text"
+            : "password";
 }
+
 </script>
+
+</body>
+
+</html>
